@@ -1,15 +1,15 @@
 pacman -Syyu --noconfirm
 pacman-key --updatedb
 pacman-key --refresh-keys
+pacman -S --noconfirm base-devel
 
 gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53
-
 useradd -m -G wheel -s /bin/bash mainuser
-su mainuser
-
-curl https://raw.githubusercontent.com/dylanaraps/bin/master/saur > ./saur
-chmod +x saur
-./saur cower
-./saur pacaur
-
-pacaur -S --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xset compton i3-gaps stow rxvt-unicode neovim feh imagemagik rofi urxvt-perls 
+adduser mainuser sudo
+sudo -u mainuser -H sh -c "\
+cd ~;
+curl https://raw.githubusercontent.com/dylanaraps/bin/master/saur > ./saur;
+chmod +x saur;
+./saur cower;
+./saur pacaur;
+pacaur -S --noconfirm --noedit xorg-server xorg-xinit xorg-xrandr xorg-xset compton i3-gaps stow rxvt-unicode neovim feh imagemagik rofi urxvt-perls" 
